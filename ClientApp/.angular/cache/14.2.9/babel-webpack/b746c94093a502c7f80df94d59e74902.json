@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { BaseEntity } from './BaseEntity';\nexport class Receipt extends BaseEntity {}","map":null,"metadata":{},"sourceType":"module"}

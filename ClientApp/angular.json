@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "projects": {
+    "ExpenseStatistics": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.json",
+            "aot": true
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ExpenseStatistics:build"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ExpenseStatistics",
+  "cli": {
+    "analytics": "308e1a4a-bcde-4876-90ec-87b19c655eee"
+  }
+}

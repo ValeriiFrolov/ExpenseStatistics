@@ -1,0 +1,62 @@
+﻿<div *ngIf="loaded">
+    <h2>Receipt {{receipt.id}}</h2>
+    <div>
+        <input type="button" value="Сохранить" (click)="saveReceipt()" class="btn btn-success" />
+        <input type="button" value="Отмена" (click)="cancelReceipt()" class="btn btn-warning" />
+    </div>
+    <div>
+        <p><b>Id:</b> {{receipt.id}}</p>
+        <p><b>Date:</b> {{receipt.date}}</p>
+        <p><b>Amount:</b> {{receipt.totalAmount}}</p>
+    </div>
+    <div class="form-group">
+        <label>Date</label>
+        <input type="text" [(ngModel)]="receipt.date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Amount</label>
+        <input type="text" [(ngModel)]="receipt.totalAmount" class="form-control" />
+    </div>
+
+    <h2>List of products</h2>
+    <input type="button" *ngIf="this.id" value="Добавить" (click)="addReceiptDetail()" class="btn btn-success" />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th mat-sort-header="id">Id</th>
+                <th mat-sort-header="amount">Amount</th>
+                <th mat-sort-header="quantity">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rd of receiptdetails">
+                <ng-template [ngIf]="receiptdetail?.id != rd.id" [ngIfElse]="edit">
+                    <td>{{rd?.id}}</td>
+                    <td>{{rd?.amount}}</td>
+                    <td>{{rd?.quantity}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" (click)="editReceiptDetail(rd)">Изменить</button>
+                        <button class="btn btn-sm btn-danger" (click)="deleteReceiptDetail(rd)">Удалить</button>
+                    </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--шаблон для редактирования-->
+<ng-template #edit>
+    <td>
+        <input type="text" [(ngModel)]="receiptdetail.id" class="form-control" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="receiptdetail.amount" class="form-control" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="receiptdetail.quantity" class="form-control" />
+    </td>
+    <td>
+        <input type="button" value="Сохранить" (click)="saveReceiptDetail()" class="btn btn-sm btn-success" />
+        <input type="button" value="Отмена" (click)="cancelReceiptDetail()" class="btn btn-sm btn-warning" />
+    </td>
+</ng-template>

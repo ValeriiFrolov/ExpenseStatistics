@@ -31,7 +31,7 @@ export class ReceiptListComponent implements OnInit {
             this.receiptdataService.createReceipt(this.receipt).subscribe((data: HttpResponse<Receipt>) => {
                 console.log(data);
                 //this.receipt.push(data.body);
-                this.router.navigateByUrl("/" + data.body?.id);
+                //this.router.navigateByUrl("/" + data.body?.id);
             });
 
         } else {

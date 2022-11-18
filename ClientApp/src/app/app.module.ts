@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { GlobalNavigationComponent } from './app.global-nav';
 import { ReceiptListComponent } from './receipt/receipt-list/receipt-list.component';
 import { ReceiptDetailComponent } from './receipt/receipt-detail/receipt-detail.component';
 
@@ -17,7 +18,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, ReceiptListComponent, ReceiptDetailComponent],
+    declarations: [AppComponent, GlobalNavigationComponent, ReceiptListComponent, ReceiptDetailComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

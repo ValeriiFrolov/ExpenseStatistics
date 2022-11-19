@@ -34,7 +34,9 @@ namespace ExpenseStatistics.Models
             //modelBuilder.Entity<ReceiptDetail>().Navigation(e => e.Receipt).AutoInclude();
 
             //modelBuilder.Entity<Receipt>().HasOne<ReceiptDetail>(s => s.Id).WithOne(g => g.ReceiptDetails).HasForeignKey(k => k.ReceiptId);
-            modelBuilder.Entity<ReceiptDetail>().HasOne<Receipt>().WithMany().HasForeignKey(rd => rd.ReceiptId);
+            modelBuilder.Entity<ReceiptDetail>().HasOne<Receipt>().WithMany().HasForeignKey(rd => rd.ReceiptId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ReceiptDetail>().HasOne<Product>().WithMany().HasForeignKey(rd => rd.ProductId).OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<ProductPrice>().HasOne<Product>().WithMany().HasForeignKey(rd => rd.ProductId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 

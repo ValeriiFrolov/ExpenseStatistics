@@ -21,8 +21,6 @@ export class ReceiptDetailComponent implements OnInit {
 
     constructor(private receiptdataService: ReceiptDataService, private receiptDetailDataService: ReceiptDetailDataService, private router: Router, activeRoute: ActivatedRoute) {
         this.id = activeRoute.snapshot.params["id"];
-        console.log(activeRoute.snapshot);
-        console.log(activeRoute.snapshot.params["id"]);
     }
 
     ngOnInit() {
@@ -30,15 +28,35 @@ export class ReceiptDetailComponent implements OnInit {
         this.loadReceiptDetails();
     }
 
+    /* Receipt
+     */
+
     loadReceipts() {
         if (this.id) {
             this.receiptdataService.getReceipt(this.id)
-                .subscribe((data: Receipt) => { this.receipt = data; this.loaded = true; });
+                .subscribe((data: Receipt) => {
+                    this.receipt = data;
+                    this.loaded = true;
+                });
         } else {
             this.receipt = new Receipt();
             this.loaded = true;
         }
     }
+
+    saveReceipt() {
+        if (this.receipt.id == null) {
+            this.receiptdataService.createReceipt(this.receipt).subscribe((data: HttpResponse<Receipt>) => {
+                this.router.navigateByUrl(this.router.url + "/" + data.body?.id);
+            });
+
+        } else {
+            this.receiptdataService.updateReceipt(this.receipt).subscribe(data => this.router.navigateByUrl("/receipt"));
+        }
+    }
+
+    /* Receipt Detail
+     */
 
     loadReceiptDetails() {
         if (this.id) {
@@ -48,38 +66,20 @@ export class ReceiptDetailComponent implements OnInit {
         }
     }
 
-    saveReceipt() {
-        if (this.receipt.id == null) {
-            this.receiptdataService.createReceipt(this.receipt).subscribe((data: HttpResponse<Receipt>) => {
-                console.log(data);
-                //this.receipt.push(data.body);
-                this.router.navigateByUrl(this.router.url + "/" + data.body?.id);
-            });
-
-        } else {
-            this.receiptdataService.updateReceipt(this.receipt).subscribe(data => this.router.navigateByUrl("/"));//.subscribe(data => this.loadReceipts());
-        }
-
-        //this.cancel();
-    }
-
     editReceiptDetail(rd: ReceiptDetail) {
         this.receiptdetail = rd;
         this.receiptdetail.ReceiptId = this.id;
-        //this.receiptdetail.Receipt = this.receipt;
     }
+
 
     cancelReceipt() {
         this.receipt = new Receipt();
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl("/receipt");
     }
 
     saveReceiptDetail() {
         if (this.receiptdetail.id == null) {
             this.receiptDetailDataService.createReceiptDetail(this.receiptdetail).subscribe((data: HttpResponse<ReceiptDetail>) => {
-                console.log(data);
-                //this.receipt.push(data.body);
-                //this.router.navigateByUrl("/" + data.body?.id);
                 this.loadReceiptDetails();
             });
 
@@ -95,7 +95,6 @@ export class ReceiptDetailComponent implements OnInit {
     addReceiptDetail() {
         this.receiptdetail = new ReceiptDetail();
         this.receiptdetail.ReceiptId = this.id;
-        //this.receiptdetail.Receipt = this.receipt;
         this.saveReceiptDetail();
     }
 
@@ -105,6 +104,5 @@ export class ReceiptDetailComponent implements OnInit {
 
     cancelReceiptDetail() {
         this.receiptdetail = new ReceiptDetail();
-        //this.loadReceiptDetails()
     }
 }

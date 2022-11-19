@@ -26,38 +26,35 @@ export class ReceiptListComponent implements OnInit {
         });
     }
 
-    save() {
+    saveReceipt() {
         if (this.receipt.id == null) {
             this.receiptdataService.createReceipt(this.receipt).subscribe((data: HttpResponse<Receipt>) => {
-                console.log(data);
-                //this.receipt.push(data.body);
-                //this.router.navigateByUrl("/" + data.body?.id);
+
             });
 
         } else {
             this.receiptdataService.updateReceipt(this.receipt).subscribe((data: HttpResponse<Receipt>) => {
-                console.log(data);
-                this.router.navigateByUrl("/");
-            });//.subscribe(data => this.loadReceipts());
+                
+            });
         }
 
-        this.cancel();
+        this.cancelReceipt();
     }
 
-    cancel() {
+    cancelReceipt() {
         this.receipt = new Receipt();
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl("/receipt");
     }
 
     editReceipt(r: Receipt) {
         this.receipt = r;
     }
 
-    delete(r: Receipt) {
+    deleteReceipt(r: Receipt) {
         this.receiptdataService.deleteReceipt(r.id).subscribe(data => this.loadReceipts());
     }
 
-    add() {
-        this.router.navigateByUrl("/receipt-detail");
+    addReceipt() {
+        this.router.navigateByUrl("/receipt/receipt-detail");
     }
 }

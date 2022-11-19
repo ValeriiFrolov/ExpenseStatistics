@@ -4,8 +4,8 @@ namespace ExpenseStatistics.Models
 {
     public class ProductPrice : BaseEntity
     {
-        private Product _product;
-        public Product Product { get { return _product; } set { _product = value; } }
+        private Guid _productId;
+        public Guid ProductId { get { return _productId; } set { _productId = value; } }
 
         private DateTime _date;
         public DateTime Date { get { return _date; } set { _date = value; } }

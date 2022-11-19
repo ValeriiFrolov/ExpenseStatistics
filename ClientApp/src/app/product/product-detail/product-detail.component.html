@@ -1,0 +1,57 @@
+﻿<div *ngIf="loaded">
+    <h2>Product {{product.id}}</h2>
+    <div>
+        <input type="button" value="Сохранить" (click)="saveProduct()" class="btn btn-success" />
+        <input type="button" value="Отмена" (click)="cancelProduct()" class="btn btn-warning" />
+    </div>
+    <div>
+        <p><b>Id:</b> {{product.id}}</p>
+        <p><b>Name:</b> {{product.name}}</p>
+    </div>
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="product.name" class="form-control" />
+    </div>
+
+    <h2>List of products</h2>
+    <input type="button" *ngIf="this.id" value="Добавить" (click)="addProductPrice()" class="btn btn-success" />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th mat-sort-header="id">Id</th>
+                <th mat-sort-header="date">Date</th>
+                <th mat-sort-header="price">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pp of productprices">
+                <ng-template [ngIf]="productprice?.id != pp.id" [ngIfElse]="edit">
+                    <td>{{pp?.id}}</td>
+                    <td>{{pp?.date}}</td>
+                    <td>{{pp?.price}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" (click)="editProductPrice(pp)">Изменить</button>
+                        <button class="btn btn-sm btn-danger" (click)="deleteProductPrice(pp)">Удалить</button>
+                    </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--шаблон для редактирования-->
+<ng-template #edit>
+    <td>
+        <input type="text" [(ngModel)]="productprice.id" class="form-control" />
+    </td>
+    <td>
+        <input type="datetime" [(ngModel)]="productprice.date" class="form-control" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="productprice.price" class="form-control" />
+    </td>
+    <td>
+        <input type="button" value="Сохранить" (click)="saveProductPrice()" class="btn btn-sm btn-success" />
+        <input type="button" value="Отмена" (click)="cancelProductPrice()" class="btn btn-sm btn-warning" />
+    </td>
+</ng-template>

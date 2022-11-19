@@ -1,0 +1,36 @@
+﻿<h2>List of product</h2>
+<input type="button" value="Добавить" (click)="addProduct()" class="btn btn-success" />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th mat-sort-header="id">Id</th>
+            <th mat-sort-header="name">Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of products">
+            <ng-template [ngIf]="product?.id != p.id" [ngIfElse]="edit">
+                <td><a [routerLink]="['product-detail', p.id]" class="nav-link">{{p?.id}}</a></td>
+                <td>{{p?.name}}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" (click)="editProduct(p)">Изменить</button>
+                    <button class="btn btn-sm btn-danger" (click)="deleteProduct(p)">Удалить</button>
+                </td>
+            </ng-template>
+        </tr>
+    </tbody>
+</table>
+
+<!--шаблон для редактирования-->
+<ng-template #edit>
+    <td>
+        <input type="text" [(ngModel)]="product.id" class="form-control" />
+    </td>
+    <td>
+        <input type="text" [(ngModel)]="product.name" class="form-control" />
+    </td>
+    <td>
+        <input type="button" value="Сохранить" (click)="saveProduct()" class="btn btn-sm btn-success" />
+        <input type="button" value="Отмена" (click)="cancelProduct()" class="btn btn-sm btn-warning" />
+    </td>
+</ng-template>

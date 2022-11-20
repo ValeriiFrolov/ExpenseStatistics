@@ -1,0 +1,26 @@
+﻿<h2 mat-dialog-title>{{pageHeader}}</h2>
+<mat-dialog-content class="mat-typography">
+    <table mat-table [dataSource]="dataSource" class="lookup-table">
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row
+            (click)="clickedRow = row"
+            [class.lookup-row-is-clicked]="clickedRow == row"
+            *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]=clickedRow cdkFocusInitial>Select</button>
+</mat-dialog-actions>

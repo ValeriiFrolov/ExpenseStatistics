@@ -1,8 +1,12 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
+
+import { MaterialListModule } from './material.module';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { GlobalNavigationComponent } from './app.global-nav';
@@ -11,6 +15,8 @@ import { ReceiptDetailComponent } from './receipt/receipt-detail/receipt-detail.
 
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+
+import { LookupPage } from './lookup/lookup-page';
 
 const appRoutes: Routes = [
     { path: 'receipt', component: ReceiptListComponent },
@@ -25,8 +31,8 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
-    declarations: [AppComponent, GlobalNavigationComponent, ReceiptListComponent, ReceiptDetailComponent, ProductListComponent, ProductDetailComponent],
+    imports: [BrowserModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule.forRoot(appRoutes), MaterialListModule, MatNativeDateModule],
+    declarations: [AppComponent, GlobalNavigationComponent, ReceiptListComponent, ReceiptDetailComponent, ProductListComponent, ProductDetailComponent, LookupPage],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
